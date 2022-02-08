@@ -25,9 +25,15 @@ class CartController extends Controller
             ->leftJoin('product', 'product.id', '=', 'cart.product_id')
             ->where('cart.user_id', '=', Auth::user()->id)
             ->get();
+        $totalPrice=0;
+        foreach ($cartDetails as $cartDetail)
+        {
+            $totalPrice+= $cartDetail->price * $cartDetail->quantity;
+        }
 
 
-        return view('panel.cart')->with('cartDetails', $cartDetails);
+
+        return view('panel.cart')->with(['cartDetails'=> $cartDetails,'totalPrice'=> $totalPrice]);
     }
 
     public function store($productId)
@@ -42,14 +48,21 @@ class CartController extends Controller
         return redirect()->route('book-detail', ['id' => $product->id]);
     }
 
-    public function calculateAllProducts()
-    {
-        $cart = Cart::where('user_id', Auth::user()->id)
-            ->select('product', 'product.id as product_id','products.price','cart.quantity','cart.id as id', 'sub_price')
-           ->join('product', 'product.id', '=', 'cart.product_id')
-        ->sum(DB::raw('(product.price * cart.quantity) as sub_price'));
-        return $cart;
-    }
+//    public function setQuantity() {
+//        error_log('worked');
+//    }
+
+//    public function calculateAllProducts()
+//    {
+//        $total = $user->cart->sum(function ($item) {
+//        return $item->price * $item->qty;
+//    });
+//    }
+//
+//    public function cart()
+//    {
+//        return $this->hasMany('App\Cart')->where('complete', 0);
+//    }
 
     public function destroy($productId)
 {

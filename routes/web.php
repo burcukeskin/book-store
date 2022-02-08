@@ -30,15 +30,16 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::get('/book-detail/{id}', [Book_Details_Controller::class, 'show'])->name('book-detail');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/place-order', [CheckoutController::class, 'placeOrder'])->name('place-order');
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/cart/{productId}', [CartController::class, 'store'])->name('cart.store');
+//Route::post('/cart', [CartController::class, 'setQuantity'])->name('cart.setQuantity');
 Route::delete('/cart/{productId}', [CartController::class, 'destroy'])->name('cart.delete');
 
 
-//    Route::middleware(['auth'])->group(function (){
 Route::get('/dashboard', [DashboardController::class , 'index'])->name('dashboard');
 Route::post('/logout', [AuthController::class , 'logout'])->name('logout');
 
-//    });
 
 

@@ -79,7 +79,7 @@
                                 <div class="properties-card">
                                     <div class="properties-img">
                                         <a href="{{ route('book-detail', $bestSellingBook["id"]) }}"><img
-                                                src="/panel/assets/img/gallery/best_selling1.jpg" alt=""></a>
+                                                src="{{ $bestSellingBook["image"] }}" alt=""></a>
                                     </div>
                                     <div class="properties-caption">
                                         <h3>
